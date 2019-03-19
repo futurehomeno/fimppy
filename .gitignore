@@ -1,0 +1,12 @@
+*.csv
+.DS_Store
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.ipynb_checkpoints
+.env
+.venv
+env/
+venv/
+.vscode
