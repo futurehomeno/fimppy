@@ -1,5 +1,6 @@
 from enum import Enum
 import uuid
+import json
 import datetime
 
 class ValueType(Enum):
@@ -18,9 +19,8 @@ class ValueType(Enum):
     BOOL_MAP = "bool_map"
     OBJECT = "object"
 
-
 class Message:
-    def __init__(self, service="", msg_type="", value=None, value_type: ValueType="string", props={}, request_msg=None,ctime=None,uid:str=""):
+    def __init__(self, service="", msg_type="", value=None, value_type: ValueType="string", props={}, request_msg=None, ctime=None, uid:str=""):
         self.service = service
         self.msg_type = msg_type
         self.value = value
@@ -42,10 +42,46 @@ class Message:
         if request_msg:
             self.corid = request_msg.uid
 
+    @classmethod
+    def from_dict(cls, fimp):
+        assert type(fimp) == dict, 'datatype for fimp can be dict'
+        print(fimp)
+        msgobj = cls(service = fimp["serv"], 
+                        msg_type = fimp["type"], 
+                        value_type = fimp["val_t"], 
+                        value = fimp["val"], 
+                        props = fimp["props"])
+        msgobj.tags = fimp["tags"]
+        if "ctime" in fimp :
+            msgobj.mctime = fimp["ctime"]
+        if "uid" in fimp :
+            msgobj.uid = fimp["uid"]
+        if "corid" in fimp :
+            msgobj.corid = fimp["corid"]
+        return msgobj
+
+    @classmethod
+    def from_string(cls, fimp):
+        assert type(fimp) == str, 'datatype for fimp can be str'
+        return cls.from_dict(json.loads(fimp))
+
     def __str__(self):
         return "service = %s , msg_type = %s , val_type = %s \n value = %s  \n props : %s \n uuid : %s \n corid : %s \n"%(
             self.service, self.msg_type, self.value_type , self.value , self.props , self.uid ,self.corid
         )
+
+    def to_dict(self):
+        jmsg = dict()
+        jmsg["serv"] = self.service
+        jmsg["type"] = self.msg_type
+        jmsg["val_t"] = str(self.value_type)
+        jmsg["val"] = self.value
+        jmsg["tags"] = self.tags
+        jmsg["props"] = self.props
+        jmsg["ctime"] = self.mctime
+        jmsg["ver"] = self.ver
+        jmsg["uid"] = self.uid
+        return jmsg
 
     @staticmethod
     def get_uuid():
@@ -54,6 +90,3 @@ class Message:
     @staticmethod
     def get_timestamp():
         return datetime.datetime.now().isoformat()
-
-
-

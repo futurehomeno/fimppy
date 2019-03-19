@@ -1,13 +1,13 @@
 from paho.mqtt import publish
 from paho.mqtt import client
-from message import Message
-from address import Address
-from json_serializer import JsonSerializer
+from .message import Message
+from .address import Address
 import threading
 import time
+import json
 
 def simple_publish(address: str, msg: Message, hostname, port):
-    publish.single(address, JsonSerializer.fimp_msg_to_string(msg), hostname=hostname, port=port, qos=1)
+    publish.single(address, msg.to, hostname=hostname, port=port, qos=1)
 
 
 class MqttTransport:
@@ -49,16 +49,17 @@ class MqttTransport:
         self.mqc.subscribe(topic, qos)
 
     def publish(self, topic, msg: Message, qos=-1):
-        msg_str = JsonSerializer.fimp_msg_to_string(msg)
+        msg_str = json.dumps(msg.to_dict())
         if qos == -1:
             qos = self.qos
         self.mqc.publish(topic, msg_str, qos=qos, retain=False)
 
     def on_message(self, client, userdata, msg):
         print("Message from topic %s" % msg.topic)
-        # print("Message from payload %s" % (str(msg.payload)))
+        print("Message from payload %s" % (str(msg.payload)))
         address = Address.parse(msg.topic)
-        fimp_msg = JsonSerializer.string_to_fimp_msg(msg.payload.decode('utf-8',"ignore"))
+        fimp_msg = Message()
+        fimp_msg.from_dict(msg.payload.decode('utf-8',"ignore"))
         if self.msg_handler:
             self.msg_handler(msg.topic, address, fimp_msg)
         print("Fimp service = %s , msg type = %s"%(fimp_msg.service,fimp_msg.msg_type))

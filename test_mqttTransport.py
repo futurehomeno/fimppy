@@ -1,7 +1,7 @@
 from unittest import TestCase
-from message import Message, ValueType
-from address import Address, MsgType, ResourceType
-from mqtt_transport import MqttTransport
+from fimppy.message import Message, ValueType
+from fimppy.address import Address, MsgType, ResourceType
+from fimppy.mqtt_transport import MqttTransport
 import time
 
 
