@@ -1,7 +1,7 @@
 from paho.mqtt import publish
 from paho.mqtt import client
-from .message import Message
-from .address import Address
+from message import Message
+from address import Address
 import threading
 import time
 import json
@@ -62,7 +62,7 @@ class MqttTransport:
         fimp_msg.from_dict(msg.payload.decode('utf-8',"ignore"))
         if self.msg_handler:
             self.msg_handler(msg.topic, address, fimp_msg)
-        print("Fimp service = %s , msg type = %s"%(fimp_msg.service,fimp_msg.msg_type))
+        print("Fimp service = %s , msg type = %s"%(fimp_msg.service, fimp_msg.msg_type))
         if len(self.active_requests) > 0:
             for key, val in self.active_requests.items():
                 if val["resp_topic"] == msg.topic:
