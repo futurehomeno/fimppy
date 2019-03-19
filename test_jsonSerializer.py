@@ -1,6 +1,6 @@
 from unittest import TestCase
-from .message import Message,ValueType
-from .json_serializer import JsonSerializer
+from message import Message,ValueType
+from json_serializer import JsonSerializer
 
 
 class TestJsonSerializer(TestCase):
