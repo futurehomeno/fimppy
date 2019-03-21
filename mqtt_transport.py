@@ -10,7 +10,17 @@ def simple_publish(address: str, msg: Message, hostname, port):
     publish.single(address, msg.to, hostname=hostname, port=port, qos=1)
 
 
-class MqttTransport:
+class MqttTransport(object):
+    '''
+    Helps you create a MQTT connection with hub using FIMP.
+
+    mq_transport = MqttTransport(hostname = 'localhost')
+    mq_transport.connect()
+    msg = Message.from_string(fimp) # see examples
+    req_topic = 'pt:j1/mt:cmd/rt:app/rn:vinculum/ad:1'
+    resp_topic = 'pt:j1/mt:evt/rt:app/rn:vinculum/ad:1'
+    response = mq_transport.send_request(req_topic, msg, resp_topic)
+    '''
     def __init__(self, hostname: str = "localhost", port: int = 1883, qos: int = 1, client_id=None, keepalive=60, clean_session=True):
         self.hostname = hostname
         self.port = port
@@ -75,7 +85,7 @@ class MqttTransport:
                         break
 
     def send_request(self, req_topic, req_msg: Message, resp_topic: str, resp_service: str = "", resp_msg_type: str = "", use_corid: bool = False,
-                     timeout: int = 60):
+                     timeout: int = 2):
         event = threading.Event()
         self.active_requests[req_msg.uid] = {"resp_topic": resp_topic, "resp_service": resp_service, "resp_msg_type": resp_msg_type, "event": event,
                                             "resp_msg": None}
