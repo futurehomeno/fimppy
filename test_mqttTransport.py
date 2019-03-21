@@ -1,7 +1,7 @@
 from unittest import TestCase
-from .message import Message, ValueType
-from .address import Address, MsgType, ResourceType
-from .mqtt_transport import MqttTransport
+from fimppy.message import Message, ValueType
+from fimppy.address import Address, MsgType, ResourceType
+from fimppy.mqtt_transport import MqttTransport
 import time
 
 
@@ -63,3 +63,12 @@ class TestMqttTransport(TestCase):
         print(response)
         mq_transport.stop()
         responder.stop()
+
+mq_transport = MqttTransport(hostname = '192.168.1.17')
+mq_transport.connect()
+msg = Message("out_bin_switch", "cmd.binary.set", True, ValueType.BOOL.value)
+req_topic = "pt:j1/mt:cmd/rt:dev/rn:pylib/ad:1/sv:out_bin_switch/ad:111"
+resp_topic = "pt:j1/mt:evt/rt:dev/rn:pylib/ad:1/sv:out_bin_switch/ad:111"
+response = mq_transport.send_request(req_topic, msg, resp_topic)
+print(response)
+mq_transport.stop()
