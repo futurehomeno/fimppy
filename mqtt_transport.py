@@ -6,9 +6,6 @@ import time
 import json
 import logging
 
-def simple_publish(address: str, msg: Message, hostname, port):
-    publish.single(address, msg.to, hostname=hostname, port=port, qos=1)
-
 class MqttTransport(object):
     """docstring for MqttTransport"""
     def __init__(self, hostname: str = "localhost", port: int = 1883, qos: int = 1, keepalive=60):

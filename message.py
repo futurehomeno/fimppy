@@ -90,6 +90,12 @@ class Message:
             self.service, self.msg_type, self.value_type , self.value , self.props , self.uid ,self.corid
         )
 
+    def __eq__(self, other):
+        return self.msg_type == other.msg_type and self.value == other.value and self.props == other.props
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def to_dict(self):
         jmsg = dict()
         jmsg['serv'] = self.service
