@@ -1,15 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Note: To use the 'upload' functionality of this file, you must:
-#   $ pip install twine
-
-import io
-import os
-import sys
-from shutil import rmtree
-
-from setuptools import find_packages, setup, Command
+from setuptools import setup
+from setuptools.command.install import install as _install
 
 # Package meta-data.
 NAME = 'fimppy'
@@ -25,25 +18,28 @@ REQUIRED = [
     'paho-mqtt'
 ]
 
-import setuptools
+class install(_install):
+    def run(self):
+        _install.run(self)
 
 with open("README.md", "r") as fh:
-    long_description = fh.read()
+    LONG_DESCRIPTION = fh.read()
 
-setuptools.setup(
+setup(
     name=NAME,
     version='0.0.1',
+    license='Proprietary',
     author=AUTHOR,
     author_email=EMAIL,
     description=DESCRIPTION,
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     url=URL,
-    packages=setuptools.find_packages(exclude=('tests',)),
+    py_modules=['fimppy'],
     install_requires=REQUIRED,
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: Other/Proprietary License",
         "Operating System :: OS Independent",
     ],
 )
