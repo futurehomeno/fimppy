@@ -1,7 +1,7 @@
 import logging
 logging.basicConfig(filename='mqtt_logs.log', level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
-from message import Message
-from mqtt_transport import MqttTransport
+from fimppy.message import Message
+from fimppy.mqtt_transport import MqttTransport
 
 req_topic = 'pt:j1/mt:cmd/rt:app/rn:vinculum/ad:1'
 resp_topic = 'pt:j1/mt:evt/rt:app/rn:vinculum/ad:1'

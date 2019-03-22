@@ -18,7 +18,7 @@
     "default": {
         "fimppy": {
             "git": "https://github.com/futurehomeno/fimppy",
-            "ref": "da13de15d825188e070e14b970c164d1203b7f29"
+            "ref": "0ce3ad0837d5263f61c2b410efc4c2e6b79b7fac"
         },
         "paho-mqtt": {
             "hashes": [
