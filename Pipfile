@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 paho-mqtt = "*"
+fimppy = {git = "https://github.com/futurehomeno/fimppy"}
 
 [dev-packages]
 
