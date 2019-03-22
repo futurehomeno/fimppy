@@ -1,6 +1,6 @@
 from paho.mqtt import publish
 from paho.mqtt import client
-from message import Message, PreMessage
+from .message import Message, PreMessage
 import threading
 import time
 import json

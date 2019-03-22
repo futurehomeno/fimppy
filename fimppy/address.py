@@ -1,20 +1,16 @@
 from enum import Enum
 
-
 class PayloadType(Enum):
     DEFAULT = "j1"
-
 
 class MsgType(Enum):
     CMD = "cmd"
     EVT = "evt"
 
-
 class ResourceType(Enum):
     DEVICE = "dev"
     APP = "app"
     ADAPTER = "ad"
-
 
 class Address:
     def __init__(self,payload_type:PayloadType=PayloadType.DEFAULT.value, msg_type:MsgType = MsgType.CMD.value, resource_type:ResourceType = ResourceType.DEVICE.value,

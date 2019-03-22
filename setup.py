@@ -10,8 +10,6 @@ DESCRIPTION = 'Futurehome FIMP API'
 URL = 'https://github.com/futurehomeno/fimppy'
 EMAIL = 'mustafa@futurehome.no'
 AUTHOR = 'Mustafa Simsek'
-REQUIRES_PYTHON = '>=3.6.0'
-VERSION = 1.0
 
 # What packages are required for this module to be executed?
 REQUIRED = [
@@ -27,7 +25,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name=NAME,
-    version='0.0.1',
+    version='1.0.1',
     license='Proprietary',
     author=AUTHOR,
     author_email=EMAIL,
