@@ -25,10 +25,6 @@ class PreMessage(Enum):
     GET_DEVICELIST = {'serv': 'vinc_db', 'type': 'cmd.device.get_list'}
     GET_SHORTCUTLIST = {'serv': 'vinc_shortcut', 'type': 'cmd.shortcut.get_list'}
 
-    @classmethod
-    def list(cls):
-        return list(map(lambda c: c.value, cls))
-
 class Message:
     def __init__(self, service='', msg_type='', value=None, value_type: ValueType='string', props={}, request_msg=None, ctime=None, uid:str=''):
         self.service = service

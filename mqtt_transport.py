@@ -1,6 +1,6 @@
 from paho.mqtt import publish
 from paho.mqtt import client
-from message import Message, PreMessage, ValueType
+from .message import Message, PreMessage
 import threading
 import time
 import json
@@ -17,13 +17,6 @@ class MqttTransport(object):
         self.mqtt = client.Client(client_id=None, clean_session=True)
         self.active_requests = {}
         self.sub_list = []
-
-    def tls_set(self, caPath, certfile, keyfile, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None):
-        try:
-            self.mqtt.tls_set(caPath, certfile=certfile, keyfile=keyfile, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
-            logging.info('MQTT Connection TLS Set.')
-        except:
-            logging.error('MQTT Connection TLS Could NOT Set.')
 
     def connect(self):
         self.mqtt.on_connect = self.on_connect
